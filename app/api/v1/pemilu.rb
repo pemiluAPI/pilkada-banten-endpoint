@@ -88,13 +88,78 @@ module Pemilu
       end
     end
 
-    resource :provinces do
-      desc "Return all provinces"
+    resource :profile_calon do
+      desc "Return all profile"
       get do
         {
-          provinces: Province.all
+          result: Profile.all
         }
       end
     end
+
+    resource :partisipasi_pilkada do
+      desc "Return all partisipasi_pilkada"
+      get do
+        {
+          partisipasi_pilkada: PartisipasiPilkada.all
+        }
+      end
+    end   
+    resource :anggaran_pilkada do
+      desc "Return all anggaran_pilkada"
+      get do
+        {
+          anggaran_pilkada: AnggaranPilkada.all
+        }
+      end
+    end   
+    resource :visi_misi_wahidin_andika do
+      desc "Return all visi_misi_wahidin_andika"
+      get do
+        {
+          visi_misi_wahidin_andika: VisiMisiWahidinAndika.all
+        }
+      end
+    end   
+    resource :visi_misi_rano_embay do
+      desc "Return all visi_misi_rano_embay"
+      get do
+        {
+          visi_misi_rano_embay: VisiMisiRanoEmbay.all
+        }
+      end
+    end  
+    resource :tahapan_pilkada do
+      desc "Return all tahapan_pilkada"
+      get do
+        {
+          tahapan_pilkada: Stage.all
+        }
+      end
+    end  
+    resource :program_unggulan do
+      desc "Return all program_unggulan"
+      get do
+        {
+          program_unggulan: ProgramUnggulan.all
+        }
+      end
+    end   
+    resource :prioritas_program_wahidin_andika do
+      desc "Return all prioritas_program_wahidin_andika"
+      get do
+        {
+          prioritas_program: PrioritasProgram.all
+        }
+      end
+    end  
+    resource :lhkpn_rano do
+      desc "Return all lhkpn_rano"
+      get do
+        {
+          lhkpn: Lhkpn.all
+        }
+      end
+    end   
   end
 end
