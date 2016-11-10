@@ -4,95 +4,12 @@ module Pemilu
     prefix 'api'
     format :json
 
-    resource :proporsi_dpr do
-      desc "Return all Proporsi Kursi Perempuan di DPR"
-      get do
-        proporsi_dpr = Array.new
-
-        # Prepare conditions based on params
-        valid_params = {
-          provinsi: 'provinsi_id'
-        }
-
-        conditions = Hash.new
-        valid_params.each_pair do |key, value|
-          conditions[value.to_sym] = params[key.to_sym] unless params[key.to_sym].blank?
-        end
-
-        ProporsiDpr.includes(:province)
-          .where(conditions)
-          .each do |proporsi|
-            proporsi_dpr << {
-              id: proporsi.id,
-              provinsi: {
-                id: proporsi.province.id,
-                nama: proporsi.province.nama_lengkap
-              },
-              kursi_anggota: proporsi.jumlah_kursi_anggota,
-              kursi_perempuan: proporsi.jumlah_kursi_perempuan,
-              presentase: proporsi.presentase
-            }
-          end
-
-        {
-          results: {
-            count: proporsi_dpr.count,
-            proporsi: proporsi_dpr
-          }
-        }
-
-      end
-    end
-
-    resource :proporsi_kota do
-      desc "Return all Proporsi Kursi Perempuan di Kabupaten/Kota"
-      get do
-        proporsi_kota = Array.new
-
-        # Prepare conditions based on params
-        valid_params = {
-          provinsi: 'provinsi_id',
-          kota: 'city_id'
-        }
-
-        conditions = Hash.new
-        valid_params.each_pair do |key, value|
-          conditions[value.to_sym] = params[key.to_sym] unless params[key.to_sym].blank?
-        end
-
-        ProporsiKota.includes(:city, :province)
-          .where(conditions)
-          .each do |proporsi|
-            proporsi_kota << {
-              id: proporsi.id,
-              provinsi: {
-                id: proporsi.province.id,
-                nama: proporsi.province.nama_lengkap,
-              },
-              kota: {
-                id: proporsi.city.id,
-                nama: proporsi.city.nama
-              },
-              kursi_anggota: proporsi.jumlah_kursi_anggota,
-              kursi_perempuan: proporsi.jumlah_kursi_perempuan,
-              presentase: proporsi.presentase
-            }
-          end
-
-        {
-          results: {
-            count: proporsi_kota.count,
-            proporsi: proporsi_kota
-          }
-        }
-      end
-    end
-
     resource :profile_calon do
       desc "Return all profile"
       get do
+        results = Profile.apiall(params)
         {
-          result: Profile.all
+          result: results
         }
       end
     end
@@ -100,64 +17,72 @@ module Pemilu
     resource :partisipasi_pilkada do
       desc "Return all partisipasi_pilkada"
       get do
+        results = PartisipasiPilkada.apiall(params)
         {
-          partisipasi_pilkada: PartisipasiPilkada.all
+          results: results
         }
       end
     end   
     resource :anggaran_pilkada do
       desc "Return all anggaran_pilkada"
       get do
+        results = AnggaranPilkada.apiall(params)
         {
-          anggaran_pilkada: AnggaranPilkada.all
+          results: results
         }
       end
     end   
     resource :visi_misi_wahidin_andika do
       desc "Return all visi_misi_wahidin_andika"
       get do
+        results = VisiMisiWahidinAndika.apiall(params)
         {
-          visi_misi_wahidin_andika: VisiMisiWahidinAndika.all
+          results: results
         }
       end
     end   
     resource :visi_misi_rano_embay do
       desc "Return all visi_misi_rano_embay"
       get do
+        results = VisiMisiRanoEmbay.apiall(params)
         {
-          visi_misi_rano_embay: VisiMisiRanoEmbay.all
+          results: results
         }
       end
     end  
     resource :tahapan_pilkada do
       desc "Return all tahapan_pilkada"
       get do
+        results = Stage.apiall(params)
         {
-          tahapan_pilkada: Stage.all
+          results: results
         }
       end
     end  
     resource :program_unggulan do
       desc "Return all program_unggulan"
       get do
+        results = ProgramUnggulan.apiall(params)
         {
-          program_unggulan: ProgramUnggulan.all
+          results: results
         }
       end
     end   
     resource :prioritas_program_wahidin_andika do
       desc "Return all prioritas_program_wahidin_andika"
       get do
+        results = PrioritasProgram.apiall(params)
         {
-          prioritas_program: PrioritasProgram.all
+          results: results
         }
       end
     end  
     resource :lhkpn_rano do
       desc "Return all lhkpn_rano"
       get do
+        results = Lhkpn.apiall(params)
         {
-          lhkpn: Lhkpn.all
+          results: results
         }
       end
     end   
