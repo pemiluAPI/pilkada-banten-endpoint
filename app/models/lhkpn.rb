@@ -1,12 +1,10 @@
 class Lhkpn < ActiveRecord::Base
-validates :id,
-  					presence: true,
-  					uniqueness: true
+  validates :id, presence: true, uniqueness: true
 
   scope :by_id, lambda{ |id| where("id = ?", id) unless id.nil? }
 
   def self.get(jenis_harta = nil)
-  	where(jenis_harta: jenis_harta).first_or_create
+    where(jenis_harta: jenis_harta).first_or_create
   end
 
   def self.apiall(data = {})
@@ -17,7 +15,7 @@ validates :id,
       lhkpn_rano: paginate_lhkpn_rano.map{|value| value.construct},
       count: paginate_lhkpn_rano.count,
       total: lhkpn_rano.count
-		}
+    }
   end
 
   def construct

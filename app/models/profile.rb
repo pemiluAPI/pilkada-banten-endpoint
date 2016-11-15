@@ -1,12 +1,10 @@
 class Profile < ActiveRecord::Base
-	validates :id,
-  					presence: true,
-  					uniqueness: true
+  validates :id, presence: true, uniqueness: true
 
   scope :by_id, lambda{ |id| where("id = ?", id) unless id.nil? }
 
   def self.get(wilayah = nil)
-  	where(wilayah: wilayah).first_or_create
+    where(wilayah: wilayah).first_or_create
   end
 
   def self.apiall(data = {})
@@ -17,7 +15,7 @@ class Profile < ActiveRecord::Base
       profile: paginate_profile.map{|value| value.construct},
       count: paginate_profile.count,
       total: profile.count
-		}
+    }
   end
 
   def construct

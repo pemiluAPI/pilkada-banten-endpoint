@@ -1,12 +1,10 @@
 class VisiMisiRanoEmbay < ActiveRecord::Base
-validates :id,
-  					presence: true,
-  					uniqueness: true
+  validates :id, presence: true, uniqueness: true
 
   scope :by_id, lambda{ |id| where("id = ?", id) unless id.nil? }
 
   def self.get(visi = nil)
-  	where(visi: visi).first_or_create
+    where(visi: visi).first_or_create
   end
 
   def self.apiall(data = {})
@@ -17,7 +15,7 @@ validates :id,
       visi_misi_rano_embay: paginate_visi_misi_rano_embay.map{|value| value.construct},
       count: paginate_visi_misi_rano_embay.count,
       total: visi_misi_rano_embay.count
-		}
+    }
   end
 
   def construct

@@ -1,12 +1,10 @@
 class PartisipasiPilkada < ActiveRecord::Base
-validates :id,
-  					presence: true,
-  					uniqueness: true
+  validates :id, presence: true, uniqueness: true
 
   scope :by_id, lambda{ |id| where("id = ?", id) unless id.nil? }
 
   def self.get(kabupaten_kota = nil)
-  	where(kabupaten_kota: kabupaten_kota).first_or_create
+    where(kabupaten_kota: kabupaten_kota).first_or_create
   end
 
   def self.apiall(data = {})
@@ -17,7 +15,7 @@ validates :id,
       partisipasi_pilkada: paginate_partisipasi_pilkada.map{|value| value.construct},
       count: paginate_partisipasi_pilkada.count,
       total: partisipasi_pilkada.count
-		}
+    }
   end
 
   def construct

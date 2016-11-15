@@ -1,12 +1,10 @@
 class ProgramUnggulan < ActiveRecord::Base
-validates :id,
-  					presence: true,
-  					uniqueness: true
+  validates :id, presence: true, uniqueness: true
 
   scope :by_id, lambda{ |id| where("id = ?", id) unless id.nil? }
 
   def self.get(program_unggulan = nil)
-  	where(program_unggulan: program_unggulan).first_or_create
+    where(program_unggulan: program_unggulan).first_or_create
   end
 
   def self.apiall(data = {})
@@ -17,7 +15,7 @@ validates :id,
       program_unggulan: paginate_program_unggulan.map{|value| value.construct},
       count: paginate_program_unggulan.count,
       total: program_unggulan.count
-		}
+    }
   end
 
   def construct

@@ -1,12 +1,10 @@
 class PrioritasProgram < ActiveRecord::Base
-validates :id,
-  					presence: true,
-  					uniqueness: true
+  validates :id, presence: true, uniqueness: true
 
   scope :by_id, lambda{ |id| where("id = ?", id) unless id.nil? }
 
   def self.get(prioritas_program = nil)
-  	where(prioritas_program: prioritas_program).first_or_create
+    where(prioritas_program: prioritas_program).first_or_create
   end
 
   def self.apiall(data = {})
@@ -17,7 +15,7 @@ validates :id,
       prioritas_program: paginate_prioritas_program.map{|value| value.construct},
       count: paginate_prioritas_program.count,
       total: prioritas_program.count
-		}
+    }
   end
 
   def construct

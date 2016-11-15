@@ -1,12 +1,10 @@
 class Stage < ActiveRecord::Base
-validates :id,
-  					presence: true,
-  					uniqueness: true
+  validates :id, presence: true, uniqueness: true
 
   scope :by_id, lambda{ |id| where("id = ?", id) unless id.nil? }
 
   def self.get(tahapan_pilkada = nil)
-  	where(tahapan_pilkada: tahapan_pilkada).first_or_create
+    where(tahapan_pilkada: tahapan_pilkada).first_or_create
   end
 
   def self.apiall(data = {})
@@ -17,7 +15,7 @@ validates :id,
       stage: paginate_stage.map{|value| value.construct},
       count: paginate_stage.count,
       total: stage.count
-		}
+    }
   end
 
   def construct
