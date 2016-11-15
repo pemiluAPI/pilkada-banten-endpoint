@@ -1,12 +1,10 @@
 class AnggaranPilkada < ActiveRecord::Base
-	validates :id,
-  					presence: true,
-  					uniqueness: true
+  validates :id, presence: true, uniqueness: true
 
   scope :by_id, lambda{ |id| where("id = ?", id) unless id.nil? }
 
   def self.get(detil_anggaran = nil)
-  	where(detil_anggaran: detil_anggaran).first_or_create
+    where(detil_anggaran: detil_anggaran).first_or_create
   end
 
   def self.apiall(data = {})
@@ -17,7 +15,7 @@ class AnggaranPilkada < ActiveRecord::Base
       anggaran_pilkada: paginate_anggaran_pilkada.map{|value| value.construct},
       count: paginate_anggaran_pilkada.count,
       total: anggaran_pilkada.count
-		}
+    }
   end
 
   def construct
